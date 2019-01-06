@@ -28,31 +28,42 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="order.php">Order</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="menu.php">All menu items</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="menu.php">Vegan friendly</a>
-                    <a class="dropdown-item" href="menu.php">Gluten free</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="staff.php">Our staff</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contact</a>
-            </li>
-        </ul>
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="order.php">Order</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="menu.php">All menu items</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="menu.php">Vegan friendly</a>
+                        <a class="dropdown-item" href="menu.php">Gluten free</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="staff.php">Our staff</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.php">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item my-2 my-lg-0">
+                    <a class="nav-link" href="login.php">Log in</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </nav>
 <div class="container">

@@ -1,0 +1,42 @@
+.navbar{
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+}
+.container{
+    font-family: 'Open Sans', sans-serif;
+}
+/* Small devices */
+@media (min-width: 150px) {
+    .navbar{
+
+    }
+    .container{
+        font-size: 1rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .navbar{
+
+    }
+    .container{
+        font-size: 1.1rem;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .navbar{
+
+    }
+    .container{
+        font-size: 1.25rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}

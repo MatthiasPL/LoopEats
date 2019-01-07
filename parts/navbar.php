@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="index.php">LoopEats</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,14 +26,26 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="staff.php">Our staff</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">Log in</a>
-            </li>
+
+            <?php
+            if(isset($_SESSION['login'])){
+                echo "<li class=\"nav-item\">";
+                echo "<a class=\"nav-link\" href=\"staff.php\">Staff Management</a>";
+                echo "</li>";
+
+                echo "<li class=\"nav-item\">";
+                echo "<a class=\"nav-link\" href=\"scripts/php/logout.php\">Log out</a>";
+                echo "</li>";
+            }
+            else{
+                echo "<li class=\"nav-item\">";
+                echo "<a class=\"nav-link\" href=\"login.php\">Log in</a>";
+                echo "</li>";
+            }
+
+            ?>
         </ul>
     </div>
 </nav>

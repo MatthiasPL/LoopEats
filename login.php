@@ -5,7 +5,10 @@
  * Date: 06.01.2019
  * Time: 12:08
  */
-session_start();
+if(isset($_SESSION['login'])){
+    header('Location: '.'staff.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +27,10 @@ session_start();
 <body>
 <?php include "parts/navbar.php"?>
 <div class="container">
+    <div class="alert alert-danger" id="error-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <div id="errormessage"></div>
+    </div>
     <div class="row">
         <div class="col-md-4 col-lg-4 col-sm-1"></div>
         <div class="col-md-4 col-lg-4 col-sm-10">
@@ -55,6 +62,7 @@ session_start();
 <script src="js/bootstrap.min.js"></script>
 <script>
     $("#button-login").click(function(){
+        //alert("a");
         $.ajax({
             url: 'scripts/php/login.php',
             type: 'post',
@@ -63,10 +71,16 @@ session_start();
                 'password': document.getElementById('passwordInput').value
             },
             success: function(response){
-                alert(document.getElementById('loginInput').value);
-                document.getElementById('test').innerHTML=response;
+                if(response=="yes"){
+                    window.location.replace("staff.php");
+                }else{
+                    //$("#errormessage").
+                }
+                //alert(document.getElementById('loginInput').value);
+                //document.getElementById('test').innerHTML=response;
             }
         });
+
     });
 </script>
 </body>

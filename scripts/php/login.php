@@ -1,4 +1,5 @@
 <?php
+include('DataBase.php');
 /**
  * Created by PhpStorm.
  * User: jeste
@@ -6,13 +7,15 @@
  * Time: 10:40
  */
 session_start();
+
 if(isset($_POST['login']) && isset($_POST['password'])){
     $db = new DataBase();
     if($db->checkPassword($_POST['login'], $_POST['password'])===TRUE){
-        echo "tak";
+        $_SESSION['login']=$_POST['login'];
+        echo "yes";
     }
     else{
-        echo "nie";
+        echo "no";
     }
+    $db->close();
 }
-echo "cos";

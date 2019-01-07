@@ -5,6 +5,9 @@
 .container{
     font-family: 'Open Sans', sans-serif;
 }
+#list{
+    width:100%;
+}
 /* Small devices */
 @media (min-width: 150px) {
     .navbar{

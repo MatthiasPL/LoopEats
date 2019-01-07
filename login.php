@@ -5,7 +5,7 @@
  * Date: 06.01.2019
  * Time: 12:08
  */
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -22,42 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="index.php">LoopEats</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="order.php">Order</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="menu.php">All menu items</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="menu.php">Vegan friendly</a>
-                    <a class="dropdown-item" href="menu.php">Gluten free</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="staff.php">Our staff</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">Log in</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<?php include "parts/navbar.php"?>
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-lg-4 col-sm-1"></div>
@@ -67,24 +32,42 @@
                     <div class="card-title"><strong>Sign In </strong></div>
                     <form role="form">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">E-mail:</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter e-mail">
+                            <label for="exampleInputEmail1">Login:</label>
+                            <input type="login" class="form-control" id="loginInput" placeholder="Enter login">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
+                            <input type="password" class="form-control" id="passwordInput" placeholder="Enter password">
                         </div>
-                        <button type="submit" class="btn btn-primary float-right">Sign in</button>
+                        <button type="button" id="button-login" class="btn btn-primary float-right">Sign in</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-sm-1"></div>
+        <div class="col-md-4 col-lg-4 col-sm-1">
+            <div id="test"></div>
+        </div>
     </div>
 </div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+    $("#button-login").click(function(){
+        $.ajax({
+            url: 'scripts/php/login.php',
+            type: 'post',
+            data: {
+                'login': document.getElementById('loginInput').value,
+                'password': document.getElementById('passwordInput').value
+            },
+            success: function(response){
+                alert(document.getElementById('loginInput').value);
+                document.getElementById('test').innerHTML=response;
+            }
+        });
+    });
+</script>
 </body>
 </html>

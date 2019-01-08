@@ -24,12 +24,12 @@ class DataBase
     }
 
     function addUser($login, $password, $name, $surname, $is_manager, $is_chef){
-        $sql = "INSERT INTO `staff` (`staff_id`, `login`, `password`, `name`, `surname`, `manager`, `chef`) VALUES (null, '$login', '$password', '$name', '$surname', '$is_manager', '$is_manager')";
+        $sql = "INSERT INTO `staff` (`staff_id`, `login`, `password`, `name`, `surname`, `manager`, `chef`) VALUES (null, '$login', '$password', '$name', '$surname', '$is_manager', '$is_chef')";
         $this->link->query($sql);
     }
 
-    function removeUser($login){
-        $sql = "DELETE FROM `staff` WHERE `login`='$login'";
+    function removeUser($staff_id){
+        $sql = "DELETE FROM `staff` WHERE `staff_id`='$staff_id'";
         $this->link->query($sql);
     }
 
@@ -44,6 +44,26 @@ class DataBase
         }
     }
 
+    function revokeManagerPrivileges($staff_id){
+        $sql = "UPDATE `staff` SET `ismanager` = 0 WHERE `staff_id` = $staff_id";
+        $this->link->query($sql);
+    }
+
+    function grantManagerPrivileges($staff_id){
+        $sql = "UPDATE `staff` SET `ismanager` = 1 WHERE `staff_id` = $staff_id";
+        $this->link->query($sql);
+    }
+
+    function revokeChefPrivileges($staff_id){
+        $sql = "UPDATE `staff` SET `ischef` = 0 WHERE `staff_id` = $staff_id";
+        $this->link->query($sql);
+    }
+
+    function grantChefPrivileges($staff_id){
+        $sql = "UPDATE `staff` SET `ischef` = 1 WHERE `staff_id` = $staff_id";
+        $this->link->query($sql);
+    }
+
     function printAllCardsWithStaff(){
         $sql = "SELECT * FROM `staff`";
         $result = $this->link->query($sql);
@@ -53,7 +73,7 @@ class DataBase
             while($row = $result->fetch_assoc()) {
                 echo "<div class=\"col-sm-12 col-md-4 align-items-stretch\">";
                     echo "<div class=\"card h-100\">";
-                        echo "<div class=\"card-body\">";
+                        echo "<div class=\"card-body\" id='".$row["staff_id"]."'>";
                             echo "<h5 class=\"card-title\">".$row["name"]." ".$row["surname"]."</h5>";
                             echo "<h6 class=\"card-subtitle mb-2 text-muted\">";
                                 if($row["manager"]=="1"){
@@ -63,8 +83,8 @@ class DataBase
                                     echo "<span class=\"badge badge-light\">Chef</span>";
                                 }
                             echo "</h6>";
-                            echo "<a href=\"#\" class=\"card-link\">Remove from staff</a><br />";
-                            echo "<a href=\"#\" class=\"card-link\">";
+                            echo "<a href=\"#\" class=\"card-link rmstaff\">Remove from staff</a><br />";
+                            echo "<a href=\"#\" class=\"manager card-link\">";
                             if($row["manager"]=="1"){
                                 echo "Revoke";
                             }
@@ -72,7 +92,7 @@ class DataBase
                                 echo "Grant";
                             }
                             echo " manager privileges</a><br />";
-                            echo "<a href=\"#\" class=\"card-link\">";
+                            echo "<a href=\"#\" class=\"chef card-link\">";
                             if($row["chef"]=="1"){
                                 echo "Revoke";
                             }

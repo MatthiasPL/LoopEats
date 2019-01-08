@@ -6,6 +6,8 @@
  * Time: 12:08
  */
 session_start();
+include 'scripts/php/DataBase.php';
+$db = new DataBase();
 if(!isset($_SESSION['login'])){
     header('Location: '.'index.php');
     exit();
@@ -29,32 +31,42 @@ if(!isset($_SESSION['login'])){
     <?php include "parts/navbar.php"?>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-4 col-lg-4 align-items-stretch">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="card-title"><strong><a href="staff_management.php">Staff management</a></strong></div>
-                        <p class="card-text">Allows you to register and remove staff.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 align-items-stretch">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="card-title"><strong><a href="#">Menu management</a></strong></div>
-                        <p class="card-text">Allows you to add and remove menu items.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 align-items-stretch">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="card-title"><strong><a href="#">Orders</a></strong></div>
-                        <p class="card-text">Check and receive orders.</p>
-                    </div>
-                </div>
-            </div>
+            <?php
+            if($db->checkManagerPrivileges($_SESSION['login'])){
+                echo "            <div class=\"col-sm-12 col-md-4 col-lg-4 align-items-stretch\">\n";
+                echo "                <div class=\"card h-100\">\n";
+                echo "                    <div class=\"card-body\">\n";
+                echo "                        <div class=\"card-title\"><strong><a href=\"staff_management.php\">Staff management</a></strong></div>\n";
+                echo "                        <p class=\"card-text\">Allows you to register and remove staff.</p>\n";
+                echo "                    </div>\n";
+                echo "                </div>\n";
+                echo "            </div>\n";
+                echo "            <div class=\"col-sm-12 col-md-4 col-lg-4 align-items-stretch\">\n";
+                echo "                <div class=\"card h-100\">\n";
+                echo "                    <div class=\"card-body\">\n";
+                echo "                        <div class=\"card-title\"><strong><a href=\"#\">Menu management</a></strong></div>\n";
+                echo "                        <p class=\"card-text\">Allows you to add and remove menu items.</p>\n";
+                echo "                    </div>\n";
+                echo "                </div>\n";
+                echo "            </div>\n";
+            }
+            if($db->checkChefPrivileges($_SESSION['login'])){
+                echo "            <div class=\"col-sm-12 col-md-4 col-lg-4 align-items-stretch\">\n";
+                echo "                <div class=\"card h-100\">\n";
+                echo "                    <div class=\"card-body\">\n";
+                echo "                        <div class=\"card-title\"><strong><a href=\"#\">Orders</a></strong></div>\n";
+                echo "                        <p class=\"card-text\">Check and receive orders.</p>\n";
+                echo "                    </div>\n";
+                echo "                </div>\n";
+                echo "            </div>\n";
+            }
+            ?>
         </div>
     </div>
+
+    <?php
+    $db->close();
+    ?>
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>

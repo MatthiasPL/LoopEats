@@ -37,16 +37,16 @@ if(isset($_SESSION['login'])){
             <div class="card">
                 <div class="card-body">
                     <div class="card-title"><strong>Sign In </strong></div>
-                    <form role="form">
+                    <form role="form" id="login-form">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Login:</label>
-                            <input type="login" class="form-control" id="loginInput" placeholder="Enter login">
+                            <input type="login" class="form-control" id="loginInput" placeholder="Enter login" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password:</label>
-                            <input type="password" class="form-control" id="passwordInput" placeholder="Enter password">
+                            <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" required>
                         </div>
-                        <button type="button" id="button-login" class="btn btn-primary float-right">Sign in</button>
+                        <button type="submit" id="button-login" class="btn btn-primary float-right">Sign in</button>
                     </form>
                 </div>
             </div>
@@ -60,9 +60,11 @@ if(isset($_SESSION['login'])){
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/validate.js"></script>
 <script>
-    $("#button-login").click(function(){
-        //alert("a");
+    $("#error-alert").hide();
+    $("#login-form").submit(function(){
+        event.preventDefault();
         $.ajax({
             url: 'scripts/php/login.php',
             type: 'post',
@@ -74,13 +76,19 @@ if(isset($_SESSION['login'])){
                 if(response=="yes"){
                     window.location.replace("staff.php");
                 }else{
-                    //$("#errormessage").
+                    $("#errormessage").text("Wrong login and/or password");
+                    $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                        $("#error-alert").fadeOut(500);
+                    });
                 }
-                //alert(document.getElementById('loginInput').value);
-                //document.getElementById('test').innerHTML=response;
+            },
+            error: function (response) {
+                $("#errormessage").text("Cannot log in");
+                $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                    $("#error-alert").fadeOut(500);
+                });
             }
         });
-
     });
 </script>
 </body>

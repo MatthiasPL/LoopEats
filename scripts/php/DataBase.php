@@ -24,7 +24,7 @@ class DataBase
     }
 
     function addUser($login, $password, $name, $surname, $is_manager, $is_chef){
-        $sql = "INSERT INTO `staff` (`staff_id`, `login`, `password`, `name`, `surname`, `manager`, `chef`) VALUES (null, '$login', '$password', '$name', '$surname', '$is_manager', '$is_chef')";
+        $sql = "INSERT INTO `staff` (`staff_id`, `login`, `password`, `name`, `surname`, `manager`, `chef`) VALUES (null, '$login', '".md5($password)."', '$name', '$surname', '$is_manager', '$is_chef')";
         $this->link->query($sql);
     }
 
@@ -44,23 +44,43 @@ class DataBase
         }
     }
 
-    function revokeManagerPrivileges($staff_id){
-        $sql = "UPDATE `staff` SET `ismanager` = 0 WHERE `staff_id` = $staff_id";
+    function checkManagerPrivileges($login){
+        $sql = "SELECT `manager` FROM `staff` WHERE `login` = '$login' AND `manager` = '1'";
+        if(mysqli_num_rows($this->link->query($sql))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function checkChefPrivileges($login){
+        $sql = "SELECT `login` FROM `staff` WHERE `login` = '$login' AND `chef` = '1'";
+        if(mysqli_num_rows($this->link->query($sql))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function revokeManagerPrivileges($login){
+        $sql = "UPDATE `staff` SET `manager` = '0' WHERE `login` = '$login'";
         $this->link->query($sql);
     }
 
-    function grantManagerPrivileges($staff_id){
-        $sql = "UPDATE `staff` SET `ismanager` = 1 WHERE `staff_id` = $staff_id";
+    function grantManagerPrivileges($login){
+        $sql = "UPDATE `staff` SET `manager` = '1' WHERE `login` = '$login'";
         $this->link->query($sql);
     }
 
-    function revokeChefPrivileges($staff_id){
-        $sql = "UPDATE `staff` SET `ischef` = 0 WHERE `staff_id` = $staff_id";
+    function revokeChefPrivileges($login){
+        $sql = "UPDATE `staff` SET `chef` = '0' WHERE `login` = '$login'";
         $this->link->query($sql);
     }
 
-    function grantChefPrivileges($staff_id){
-        $sql = "UPDATE `staff` SET `ischef` = 1 WHERE `staff_id` = $staff_id";
+    function grantChefPrivileges($login){
+        $sql = "UPDATE `staff` SET `chef` = '1' WHERE `login` = '$login'";
         $this->link->query($sql);
     }
 
@@ -73,7 +93,7 @@ class DataBase
             while($row = $result->fetch_assoc()) {
                 echo "<div class=\"col-sm-12 col-md-4 align-items-stretch\">";
                     echo "<div class=\"card h-100\">";
-                        echo "<div class=\"card-body\" id='".$row["staff_id"]."'>";
+                        echo "<div class=\"card-body\" id='".$row["login"]."'>";
                             echo "<h5 class=\"card-title\">".$row["name"]." ".$row["surname"]."</h5>";
                             echo "<h6 class=\"card-subtitle mb-2 text-muted\">";
                                 if($row["manager"]=="1"){

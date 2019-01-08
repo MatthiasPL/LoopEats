@@ -32,7 +32,7 @@ session_start();
             <?php
             if(isset($_SESSION['login'])){
                 echo "<li class=\"nav-item\">";
-                echo "<a class=\"nav-link\" href=\"staff.php\">Staff Management</a>";
+                echo "<a class=\"nav-link\" href=\"staff.php\">Management</a>";
                 echo "</li>";
 
                 echo "<li class=\"nav-item\">";

@@ -27,10 +27,6 @@ if(isset($_SESSION['login'])){
 <body>
 <?php include "parts/navbar.php"?>
 <div class="container">
-    <div class="alert alert-danger" id="error-alert">
-        <button type="button" class="close" data-dismiss="alert">x</button>
-        <div id="errormessage"></div>
-    </div>
     <div class="row justify-content-center">
         <button type="button" id="add-person" class="btn btn-success">Add new person</button>
     </div>
@@ -74,7 +70,7 @@ if(isset($_SESSION['login'])){
             success: function(response){
                 $("#list").html(response);
                 $(".rmstaff").click(function(){
-                    if (confirm('Are you sure to remove this person from te staff?')) {
+                    if (confirm('Are you sure to remove this person from the staff?')) {
                         $.ajax({
                             url: 'scripts/php/removeFromStaff.php',
                             type: 'post',
@@ -86,17 +82,24 @@ if(isset($_SESSION['login'])){
                     }
                 });
                 $(".manager").click(function(){
-                    //if having revoke -> revoke, if grant -> grant
-                    //same for chef :^)
                     $.ajax({
-                        url: 'scripts/php/revokeManagerPrivileges.php',
+                        url: 'scripts/php/changeManagerPrivileges.php',
                         type: 'post',
-                        data: {"staff_id": $(this).parent().attr("id")},
+                        data: {"login": $(this).parent().attr("id")},
                         success: function(response){
                             location.reload();
                         }
                     });
-                    //alert($(this).parent().attr("id"));
+                });
+                $(".chef").click(function(){
+                    $.ajax({
+                        url: 'scripts/php/changeChefPrivileges.php',
+                        type: 'post',
+                        data: {"login": $(this).parent().attr("id")},
+                        success: function(response){
+                            location.reload();
+                        }
+                    });
                 });
             }
         });

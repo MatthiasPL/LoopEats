@@ -24,11 +24,23 @@
 <body>
 <?php include "parts/navbar.php"?>
 <div class="container">
-
+<div id="list"></div>
 </div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("#add-dish-card").hide();
+        $.ajax({
+            url: 'scripts/php/printOrderMenu.php',
+            type: 'post',
+            success: function (response) {
+                $("#list").html(response);
+            }
+        });
+    });
+</script>
 </body>
 </html>

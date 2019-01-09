@@ -14,20 +14,12 @@ session_start();
             <li class="nav-item">
                 <a class="nav-link" href="order.php">Order</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="menu.php">All menu items</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="menu.php">Vegan friendly</a>
-                    <a class="dropdown-item" href="menu.php">Gluten free</a>
-                </div>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contact</a>
+                <a class="nav-link" href="menu.php">Menu</a>
             </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="contact.php">Contact</a>
+            </li>-->
 
             <?php
             if(isset($_SESSION['login'])){

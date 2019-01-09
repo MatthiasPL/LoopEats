@@ -129,4 +129,63 @@ class DataBase
             echo "No staff";
         }
     }
+
+    function addDishWithImage($dish_name, $dish_description, $vegan_friendly, $gluten_free, $spicy, $contains_nuts, $image_link, $price){
+        $sql = "INSERT INTO `dishes` (`dish_id`, `dish_name`, `dish_description`, `vegan_friendly`, `gluten_free`, `spicy`, `contains_nuts` , `image_link`, `price`) VALUES (null, '$dish_name', '$dish_description', '$vegan_friendly', '$gluten_free', '$spicy', '$contains_nuts', '$image_link', $price)";
+        $this->link->query($sql);
+    }
+
+    function addDishWithoutImage($dish_name, $dish_description, $vegan_friendly, $gluten_free, $spicy, $contains_nuts, $price){
+        $sql = "INSERT INTO `dishes` (`dish_id`, `dish_name`, `dish_description`, `vegan_friendly`, `gluten_free`, `spicy`, `contains_nuts` , `image_link`, `price`) VALUES (null, '$dish_name', '$dish_description', '$vegan_friendly', '$gluten_free', '$spicy', '$contains_nuts', null, '$price')";
+        echo $sql;
+        $this->link->query($sql);
+    }
+
+    function removeDish($dish_id){
+        $sql = "DELETE FROM `dishes` WHERE `dish_id`=$dish_id";
+        $this->link->query($sql);
+    }
+
+    function printAllCardsWithDishes(){
+        //CHANGE dish cards
+        $sql = "SELECT * FROM `dishes`";
+        $result = $this->link->query($sql);
+
+        if ($result->num_rows > 0) {
+            echo "<div class=\"row\">";
+            while($row = $result->fetch_assoc()) {
+                echo "<div class=\"col-sm-12 col-md-4 align-items-stretch\">";
+                echo "<div class=\"card text-justify h-100\">";
+                echo "<div class=\"card-body d-flex flex-column\" id='".$row["dish_id"]."'>";
+                echo "<div class=\"card-header\">";
+                if($row["gluten_free"]=="1"){
+                    echo "<span class=\"badge badge-info\">Gluten free</span> ";
+                }
+                if($row["vegan_friendly"]=="1"){
+                    echo "<span class=\"badge badge-success\">Vegan</span> ";
+                }
+                if($row["spicy"]=="1"){
+                    echo "<span class=\"badge badge-danger\">Spicy</span> ";
+                }
+                if($row["contains_nuts"]=="1"){
+                    echo "<span class=\"badge badge-warning\">Nuts</span> ";
+                }
+                echo "</div>";
+                echo "<h5 class=\"card-title text-center\"><strong>".$row["dish_name"]."</strong></h5>";
+                if($row["image_link"]!=null){
+                    echo "<img class=\"card-img\" src=\"{$row['image_link']}\" alt=\"Card image cap\"><br />";
+                }
+                echo "<h6 class=\"card-subtitle mb-2 text-muted\">";
+                echo $row["dish_description"];
+                echo "</h6>";
+                echo "<a href=\"#\" class=\"card-link mt-auto rmdish\">Remove from menu</a>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            echo "</div>";
+        } else {
+            echo "No dishes";
+        }
+    }
 }

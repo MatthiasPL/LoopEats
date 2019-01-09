@@ -34,22 +34,24 @@ if(isset($_SESSION['login'])){
         <div class="col-sm-12 col-md-4 align-items-stretch">
             <div class="card h-100">
                 <div class="card-body">
-                    <div class="card-title"><strong>Add new person</strong></div>
-                    Login: <input type="text" id="login" class="input-group-text w-100" />
-                    Password: <input type="password" id="password" class="input-group-text w-100" />
-                    Name: <input type="text" id="name" class="input-group-text w-100" />
-                    Surname: <input type="text" id="surname" class="input-group-text w-100" />
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="ischef">
-                        <label class="custom-control-label" for="ischef">Is chef</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="ismanager">
-                        <label class="custom-control-label" for="ismanager">Is manager</label>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-outline-success w-100" id="add-to-staff">Add</button>
-                    </div>
+                    <form role="form" id="staff_form">
+                        <div class="card-title"><strong>Add new person</strong></div>
+                        Login: <input type="text" id="login" class="input-group-text w-100" required/>
+                        Password: <input type="password" id="password" class="input-group-text w-100" required/>
+                        Name: <input type="text" id="name" class="input-group-text w-100" required/>
+                        Surname: <input type="text" id="surname" class="input-group-text w-100" required/>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ischef">
+                            <label class="custom-control-label" for="ischef">Is chef</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ismanager">
+                            <label class="custom-control-label" for="ismanager">Is manager</label>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-outline-success w-100" id="add-to-staff">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,7 +115,7 @@ if(isset($_SESSION['login'])){
             $(this).html("Add new person");
         }
     });
-    $("#add-to-staff").click(function (){
+    $("#staff_form").submit(function (){
         var ismanager = $("#ismanager").is(':checked');
         var ischef = $("#ischef").is(':checked');
         if(ismanager===true){
@@ -128,7 +130,7 @@ if(isset($_SESSION['login'])){
         else {
             ischef="0";
         }
-        alert(ischef);
+        //alert(ischef);
         $.ajax({
             url: 'scripts/php/addToStaff.php',
             type: 'post',

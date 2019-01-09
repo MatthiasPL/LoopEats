@@ -44,7 +44,7 @@ if(!isset($_SESSION['login'])){
                 echo "            <div class=\"col-sm-12 col-md-4 col-lg-4 align-items-stretch\">\n";
                 echo "                <div class=\"card h-100\">\n";
                 echo "                    <div class=\"card-body\">\n";
-                echo "                        <div class=\"card-title\"><strong><a href=\"#\">Menu management</a></strong></div>\n";
+                echo "                        <div class=\"card-title\"><strong><a href=\"menu_management.php\">Menu management</a></strong></div>\n";
                 echo "                        <p class=\"card-text\">Allows you to add and remove menu items.</p>\n";
                 echo "                    </div>\n";
                 echo "                </div>\n";

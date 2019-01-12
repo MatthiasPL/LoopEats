@@ -71,26 +71,17 @@ else{
 <script src="js/bootstrap.min.js"></script>
 
 <script>
-    $( document ).ready(function() {
+    $( document ).ready(function(event) {
         $("#add-person-card").hide();
         $.ajax({
             url: 'scripts/php/loadStaff.php',
             type: 'post',
             success: function(response){
                 $("#list").html(response);
-                $(".rmstaff").click(function(event){
-                    if (confirm('Are you sure to remove this person from the staff?')) {
-                        $.ajax({
-                            url: 'scripts/php/removeFromStaff.php',
-                            type: 'post',
-                            data: {"staff_id": $(this).parent().attr("id")},
-                            success: function(response){
-                                location.reload();
-                            }
-                        });
-                    }
+                $(".rmstaff").click(function(event1){
+                    removeFromStaf($(this).parent().attr("id"));
                 });
-                $(".manager").click(function(event){
+                $(".manager").click(function(event2){
                     $.ajax({
                         url: 'scripts/php/changeManagerPrivileges.php',
                         type: 'post',
@@ -100,7 +91,7 @@ else{
                         }
                     });
                 });
-                $(".chef").click(function(event){
+                $(".chef").click(function(event3){
                     $.ajax({
                         url: 'scripts/php/changeChefPrivileges.php',
                         type: 'post',
@@ -113,7 +104,20 @@ else{
             }
         });
     });
-    $("#add-person").click(function () {
+    function removeFromStaf(id){
+        if (confirm('Are you sure to remove this person from the staff?')) {
+            $.ajax({
+                url: 'scripts/php/removeFromStaff.php',
+                type: 'post',
+                data: {"staff_id": id},
+                success: function(response){
+                    //alert($(this).parent().attr("id"));
+                    location.reload();
+                }
+            });
+        }
+    }
+    $("#add-person").click(function (event) {
         if($(this).html()=="Add new person"){
             $("#add-person-card").show(600);
             $(this).html("Hide");
@@ -122,7 +126,8 @@ else{
             $(this).html("Add new person");
         }
     });
-    $("#staff_form").submit(function (){
+    $("#staff_form").submit(function (event){
+        event.preventDefault();
         var ismanager = $("#ismanager").is(':checked');
         var ischef = $("#ischef").is(':checked');
         if(ismanager===true){

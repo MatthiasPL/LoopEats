@@ -34,7 +34,7 @@ class DataBase
     }
 
     function removeUser($staff_id){
-        $sql = "DELETE FROM `staff` WHERE `staff_id`='$staff_id'";
+        $sql = "DELETE FROM `staff` WHERE `login`='$staff_id'";
         $this->link->query($sql);
     }
 

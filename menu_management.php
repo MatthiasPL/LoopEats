@@ -102,7 +102,7 @@ else{
         });
     });
 
-    $("#add-dish").click(function () {
+    $("#add-dish").click(function (event) {
         if($(this).html()=="Add new dish"){
             $("#add-dish-card").show(600);
             $(this).html("Hide");
@@ -112,7 +112,7 @@ else{
         }
     });
 
-    $("#menu-form").submit(function(){
+    $("#menu-form").submit(function(event){
         event.preventDefault();
 
         var veganfriendly = $("#vegan_friendly").is(':checked');

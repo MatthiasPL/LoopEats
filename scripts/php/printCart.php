@@ -8,7 +8,7 @@
 include('DataBase.php');
 session_start();
 
-if(count($_SESSION['cart'])){
+if(isset($_SESSION['cart']) && count($_SESSION['cart'])){
     $db = new DataBase();
     $overallPrice = 0;
     //echo "<div class='table-responsive'>";

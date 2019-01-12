@@ -17,7 +17,7 @@ if(!isset($_SESSION['login'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test</title>
+    <title>Staff</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +54,7 @@ if(!isset($_SESSION['login'])){
                 echo "            <div class=\"col-sm-12 col-md-4 col-lg-4 align-items-stretch\">\n";
                 echo "                <div class=\"card h-100\">\n";
                 echo "                    <div class=\"card-body\">\n";
-                echo "                        <div class=\"card-title\"><strong><a href=\"#\">Orders</a></strong></div>\n";
+                echo "                        <div class=\"card-title\"><strong><a href=\"order_management.php\">Orders</a></strong></div>\n";
                 echo "                        <p class=\"card-text\">Check and receive orders.</p>\n";
                 echo "                    </div>\n";
                 echo "                </div>\n";

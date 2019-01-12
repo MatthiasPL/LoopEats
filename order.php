@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test</title>
+    <title>Orders</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,6 +92,7 @@
             success: function (response) {
                 $("#list").html(response);
                 $(".adddish").click(function(){
+                    var scroll = $(window).scrollTop();
                     if($(this).parent().parent().find("#quantity").val()>0){
                         //alert($(this).parent().parent().parent().parent().attr("id"));
                         $.ajax({
@@ -100,7 +101,8 @@
                             data: {"dish_id": $(this).parent().parent().parent().parent().attr("id"), "quantity": $(this).parent().parent().find("#quantity").val()},
                             success: function(response){
                                 //alert(response);
-                                location.reload();
+                                draw();
+                                $("html").scrollTop(scroll);
                                 //draw();
                             }
                         });
@@ -108,7 +110,9 @@
                 });
                 $(".rmdish").click(function(){
                     //alert($(this).parent().parent().parent().parent().attr("id"));
-                    if (confirm('Are you sure to remove this dish from the order?')) {
+                    if (confirm('Are you sure to remove this dish from the order?'))
+                    {
+                        var scroll = $(window).scrollTop();
                         $.ajax({
                             url: 'scripts/php/removeFromCart.php',
                             type: 'post',
@@ -116,6 +120,7 @@
                             success: function (response) {
                                 //location.reload();
                                 draw();
+                                $("html").scrollTop(scroll);
                             }
                         });
                     }

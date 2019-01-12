@@ -13,6 +13,11 @@ class DataBase
     private $servername = "localhost";
     private $dbname = "hpgrouph_bazka";
 
+    /*private $username = "root";
+    private $password = "";
+    private $servername = "localhost";
+    private $dbname = "test";*/
+
     private $link;
 
     function DataBase(){

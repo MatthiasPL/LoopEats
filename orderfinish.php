@@ -15,7 +15,7 @@ if(!count($_SESSION['cart'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test</title>
+    <title>Order</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -98,14 +98,14 @@ if(!count($_SESSION['cart'])){
                 if(response=="Successfully ordered"){
                     $("#successmessage").text(response);
                     $("#success-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                        $.ajax({
+                            url: 'scripts/php/emptyCart.php',
+                            type: 'post',
+                            success: function (response) {
+                            }
+                        });
                         $("#error-alert").fadeOut(1000, function(){
-                            $.ajax({
-                                url: 'scripts/php/emptyCart.php',
-                                type: 'post',
-                                success: function (response) {
-                                    window.location.replace("order.php");
-                                }
-                            });
+                            window.location.replace("order.php");
                         });
                     });
                     $('#order-form')[0].reset();

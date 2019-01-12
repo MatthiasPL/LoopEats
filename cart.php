@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test</title>
+    <title>Cart</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <?php
-    if(count($_SESSION['cart'])){
+    if(isset($_SESSION['cart']) && count($_SESSION['cart'])){
         echo"<div class=\"row justify-content-center\">";
         echo"<a href=\"orderfinish.php\" id=\"next-step\" class=\"btn btn-success\">Next</a>";
         echo "</div>";

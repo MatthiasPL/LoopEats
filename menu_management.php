@@ -5,16 +5,23 @@
  * Date: 06.01.2019
  * Time: 12:08
  */
-if(isset($_SESSION['login'])){
+include('scripts/php/DataBase.php');
+$db = new DataBase();
+if(isset($_SESSION['login']) && $db->checkManagerPrivileges($_SESSION['login'])){
+    $db->close();
     header('Location: '.'staff.php');
     exit();
 }
+else{
+    $db->close();
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test</title>
+    <title>Menu Management</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,3 +157,5 @@ if(isset($_SESSION['login'])){
         });
     });
 </script>
+</body>
+</html>

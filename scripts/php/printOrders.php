@@ -26,11 +26,14 @@ if(isset($_SESSION['login']) && $db->checkChefPrivileges($_SESSION['login'])){
         array_multisort($time, SORT_ASC, $tempArray);
 
         foreach ($tempArray as $order){
-            echo "<div class='col-sm-12 col-md-4 h-100'>";
-            echo "<table class=\"table\"><thead class=\"thead-dark\"><tr><th scope='col' colspan='2' class='text-center'>{$order['id']} - {$order['time']}</th></tr></tr><tr><th scope=\"col\">Name</th><th scope=\"col\">#</th></tr></thead><tbody>";
+            echo "<div class='col-sm-12 col-md-6 h-100'>";
+            echo "<table class=\"table\"><thead class=\"thead-dark\"><tr><th scope='col' colspan='2' class='text-center'>{$order['id']} - {$order['time']} ({$order['num_people']} people)</th></tr></tr><tr><th scope=\"col\">Name</th><th scope=\"col\">#</th></tr></thead><tbody>";
             //echo $order['surname'];
             foreach ($order['products'] as $products){
                 echo "<tr><th scope=\"col\">".$db->returnDishName($products['id'])."</th><th scope=\"col\">{$products['quantity']}</th></tr>";
+            }
+            if($order['comment']!=""){
+                echo "<tr><th scope='col' colspan='2' class='text-left'><div class='overflow-auto'>Comment: {$order['comment']}</div></th></tr>";
             }
             echo "<tr><th scope='col' colspan='2' class='text-right'><a href='#' class=\"fas fa-trash-alt rmfromorders\" id=\"".$order['id']."\"> Remove</a></th></tr>";
             echo "</tbody></table>";

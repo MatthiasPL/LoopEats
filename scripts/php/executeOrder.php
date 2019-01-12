@@ -50,6 +50,13 @@ if(isset($_POST['surname']) && isset($_POST['numPeople']) && isset($_POST['time'
 
                 $index = $ordersq."-".$_POST['surname'];
 
+                if(!isset($_POST['comment'])){
+                    $comment = "";
+                }
+                else{
+                    $comment = $_POST['comment'];
+                }
+
                 $tempArray[$index]=[
                     'id' => $index,
                     'surname' => $_POST['surname'],
@@ -57,7 +64,8 @@ if(isset($_POST['surname']) && isset($_POST['numPeople']) && isset($_POST['time'
                     'num_people' => intval($_POST['numPeople']),
                     'products' => $products,
                     'takeaway' => doubleval($_POST['takeaway']),
-                    'price' => $overallPrice
+                    'price' => $overallPrice,
+                    'comment' => $comment
                 ];
 
                 $json = json_encode($tempArray, JSON_PRETTY_PRINT);

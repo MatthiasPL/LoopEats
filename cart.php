@@ -48,7 +48,7 @@
     $( document ).ready(function() {
         print();
     });
-    $("#emptyCart").click(function(){
+    $("#emptyCart").click(function(event){
         event.preventDefault();
         if (confirm('Are you sure to empty your cart?')) {
             $.ajax({

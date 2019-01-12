@@ -61,7 +61,7 @@ else{
             type: 'post',
             success: function (response) {
                 $("#list").html(response);
-                $(".rmfromorders").click(function(){
+                $(".rmfromorders").click(function(event){
                     var scroll = $(window).scrollTop();
                     event.preventDefault();
                     $.ajax({

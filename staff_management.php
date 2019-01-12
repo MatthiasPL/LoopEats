@@ -78,7 +78,7 @@ else{
             type: 'post',
             success: function(response){
                 $("#list").html(response);
-                $(".rmstaff").click(function(){
+                $(".rmstaff").click(function(event){
                     if (confirm('Are you sure to remove this person from the staff?')) {
                         $.ajax({
                             url: 'scripts/php/removeFromStaff.php',
@@ -90,7 +90,7 @@ else{
                         });
                     }
                 });
-                $(".manager").click(function(){
+                $(".manager").click(function(event){
                     $.ajax({
                         url: 'scripts/php/changeManagerPrivileges.php',
                         type: 'post',
@@ -100,7 +100,7 @@ else{
                         }
                     });
                 });
-                $(".chef").click(function(){
+                $(".chef").click(function(event){
                     $.ajax({
                         url: 'scripts/php/changeChefPrivileges.php',
                         type: 'post',

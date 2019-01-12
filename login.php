@@ -62,34 +62,66 @@ if(isset($_SESSION['login'])){
 <script src="js/bootstrap.min.js"></script>
 <script src="js/validate.js"></script>
 <script>
-    $("#error-alert").hide();
-    $("#login-form").submit(function(){
-        event.preventDefault();
-        $.ajax({
-            url: 'scripts/php/login.php',
-            type: 'post',
-            data: {
-                'login': document.getElementById('loginInput').value,
-                'password': document.getElementById('passwordInput').value
-            },
-            success: function(response){
-                if(response=="yes"){
-                    window.location.replace("staff.php");
-                }else{
-                    $("#errormessage").text("Wrong login and/or password");
+    $(document).ready(function(){
+        $("#error-alert").hide();
+        $("#login-form").submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                url: 'scripts/php/login.php',
+                type: 'post',
+                data: {
+                    'login': document.getElementById('loginInput').value,
+                    'password': document.getElementById('passwordInput').value
+                },
+                success: function(response){
+                    if(response=="yes"){
+                        window.location.replace("staff.php");
+                    }else{
+                        $("#errormessage").text("Wrong login and/or password");
+                        $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                            $("#error-alert").fadeOut(500);
+                        });
+                    }
+                },
+                error: function (response) {
+                    $("#errormessage").text("Cannot log in");
                     $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
                         $("#error-alert").fadeOut(500);
                     });
                 }
-            },
-            error: function (response) {
-                $("#errormessage").text("Cannot log in");
-                $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
-                    $("#error-alert").fadeOut(500);
-                });
-            }
+            });
         });
     });
+    /*$(document).ready(function() {
+        $("#error-alert").hide();
+        $("#login-form").submit(function(){
+            event.preventDefault();
+            $.ajax({
+                url: 'scripts/php/login.php',
+                type: 'post',
+                data: {
+                    'login': document.getElementById('loginInput').value,
+                    'password': document.getElementById('passwordInput').value
+                },
+                success: function(response){
+                    if(response=="yes"){
+                        window.location.replace("staff.php");
+                    }else{
+                        $("#errormessage").text("Wrong login and/or password");
+                        $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                            $("#error-alert").fadeOut(500);
+                        });
+                    }
+                },
+                error: function (response) {
+                    $("#errormessage").text("Cannot log in");
+                    $("#error-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
+                        $("#error-alert").fadeOut(500);
+                    });
+                }
+            });
+        });
+    }*/
 </script>
 </body>
 </html>

@@ -52,8 +52,12 @@ if(!count($_SESSION['cart'])){
                             <input type="number" step="1" min="1" max="6" class="form-control" id="num-people" placeholder="Enter number of people" required>
                         </div>
                         <div class="form-group">
-                            <label for="time">Time: <i class="text-black-50">(12-16 every 0.5h)</i></label>
+                            <label for="time">Time: <i class="text-black-50">(12-20:30 every 0.5h)</i></label>
                             <input type="time" class="form-control" id="time" min="12:00" max="20:00" step="1800" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <input type="text" class="form-control" id="comment" maxlength="32">
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="takeaway">
@@ -78,7 +82,7 @@ if(!count($_SESSION['cart'])){
     $("#success-alert").hide();
     $("#error-alert").hide();
 
-    $("#order-form").submit(function(){
+    $("#order-form").submit(function(event){
         event.preventDefault();
 
         var takeaway = $("#takeaway").is(':checked');
@@ -93,26 +97,32 @@ if(!count($_SESSION['cart'])){
         $.ajax({
             url: 'scripts/php/executeOrder.php',
             type: 'post',
-            data: {"surname": $("#surname").val(), "numPeople": $("#num-people").val(), "time": $("#time").val(), "takeaway": takeaway},
+            data: {"surname": $("#surname").val(), "numPeople": $("#num-people").val(), "time": $("#time").val(), "takeaway": takeaway, "comment": $("#comment").val()},
             success: function (response) {
                 if(response=="Successfully ordered"){
                     $("#successmessage").text(response);
-                    $("#success-alert").slideDown(1500).delay(1000).slideUp(1500, function(){
-                        $.ajax({
-                            url: 'scripts/php/emptyCart.php',
-                            type: 'post',
-                            success: function (response) {
-                            }
-                        });
-                        $("#error-alert").fadeOut(1000, function(){
-                            window.location.replace("order.php");
+                    $("#success-alert").slideDown(1500).delay(1000).slideUp(1500, function(event){
+                        event.preventDefault();
+                        $("#error-alert").fadeOut(1000, function(event){
+
                         });
                     });
+                    setTimeout(
+                        function()
+                        {
+                            $.ajax({
+                                url: 'scripts/php/emptyCart.php',
+                                type: 'post',
+                                success: function (response) {
+                                    window.location.replace("order.php");
+                                }
+                            });
+                        }, 3500);
                     $('#order-form')[0].reset();
                 }
                 else{
                     $("#errormessage").text(response);
-                    $("#error-alert").slideDown(1500).delay(2000).slideUp(1500, function(){
+                    $("#error-alert").slideDown(1500).delay(2000).slideUp(1500, function(event){
                         $("#error-alert").fadeOut(500);
                     });
                 }

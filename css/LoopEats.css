@@ -26,6 +26,12 @@
     margin-bottom: 1rem;
 }
 
+@-moz-document url-prefix() {
+    .card-img {
+        margin-bottom: 0.5rem;
+    }
+}
+
 /* Small devices */
 @media (min-width: 150px) {
     .navbar{

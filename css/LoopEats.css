@@ -3,6 +3,8 @@
     font-family: 'Open Sans', sans-serif;
 }
 .container{
+    margin-top: 3rem;
+    padding-top: 3rem;
     font-family: 'Open Sans', sans-serif;
 }
 #list{
@@ -11,6 +13,15 @@
 .card-title{
     margin-top: 12px;
 }
+.col-md-4{
+    padding: 0.25rem;
+}
+
+.table .thead-dark th{
+    background-color: #E95420;
+    color: rgba(255, 255, 255, 0.6);
+}
+
 /* Small devices */
 @media (min-width: 150px) {
     .navbar{

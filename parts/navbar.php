@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <a class="navbar-brand" href="index.php">LoopEats</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -14,14 +14,20 @@ session_start();
             <li class="nav-item">
                 <a class="nav-link" href="order.php">Order</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" href="menu.php">Menu</a>
-            </li>
+            </li>-->
             <!--<li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact</a>
             </li>-->
 
             <?php
+            //if(count($_SESSION['cart'])){
+                echo "<li class=\"nav-item\">";
+                echo "<a class=\"nav-link\" href=\"cart.php\">Cart</a>";
+                echo "</li>";
+            //}
+
             if(isset($_SESSION['login'])){
                 echo "<li class=\"nav-item\">";
                 echo "<a class=\"nav-link\" href=\"staff.php\">Management</a>";

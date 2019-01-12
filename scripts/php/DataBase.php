@@ -137,7 +137,7 @@ class DataBase
 
     function addDishWithoutImage($dish_name, $dish_description, $vegan_friendly, $gluten_free, $spicy, $contains_nuts, $price){
         $sql = "INSERT INTO `dishes` (`dish_id`, `dish_name`, `dish_description`, `vegan_friendly`, `gluten_free`, `spicy`, `contains_nuts` , `image_link`, `price`) VALUES (null, '$dish_name', '$dish_description', '$vegan_friendly', '$gluten_free', '$spicy', '$contains_nuts', null, '$price')";
-        echo $sql;
+        //echo $sql;
         $this->link->query($sql);
     }
 
@@ -189,9 +189,9 @@ class DataBase
         }
     }
 
-    function printOrderMenu(){
+    function printOrderMenu($sql){
         //CHANGE dish cards
-        $sql = "SELECT * FROM `dishes`";
+        //$sql = "SELECT * FROM `dishes`";
         $result = $this->link->query($sql);
 
         if ($result->num_rows > 0) {
@@ -223,12 +223,20 @@ class DataBase
                 echo "</h6>";
                 echo "<div class=\"form-group mt-auto\">";
                 echo "<div class=\"row\">";
-                echo "<div class=\"col-sm-12 col-md-7\">";
-                echo "<input type=\"number\" class=\"form-control\" id=\"quantity\" placeholder=\"Enter quantity\" value='0' min='0' max='200' required>";
-                echo "</div>";
-                echo "<div class=\"col-sm-12 col-md-5\">";
-                echo "<a href=\"#\" class=\"card-link rmdish\">Add to cart</a>";
-                echo "</div>";
+
+                if(!isset($_SESSION["cart"][$row["dish_id"]])){
+                    echo "<div class=\"col-sm-12 col-md-5\">";
+                    echo "<input type=\"number\" class=\"form-control\" id=\"quantity\" placeholder=\"Enter quantity\" value='0' min='0' max='200' step='1' required>";
+                    echo "</div>";
+                    echo "<div class=\"col-sm-12 col-md-7\">";
+                    echo "<a href=\"#\" class=\"card-link adddish\">Add to cart</a>";
+                    echo "</div>";
+                }
+                else {
+                    echo "<div class=\"col-12\">";
+                    echo "<a href=\"#\" class=\"card-link rmdish\">Remove from cart ({$_SESSION["cart"][$row["dish_id"]]})</a>";
+                    echo "</div>";
+                }
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -280,6 +288,42 @@ class DataBase
             echo "</div>";
         } else {
             echo "No dishes";
+        }
+    }
+
+    function returnDishName($dish_id){
+        $sql = "SELECT `dish_name` FROM `dishes` WHERE `dish_id` = $dish_id";
+        $result = $this->link->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["dish_name"];
+        }
+        else{
+            return "Wrong id";
+        }
+    }
+
+    function returnDishPrice($dish_id){
+        $sql = "SELECT `price` FROM `dishes` WHERE `dish_id` = $dish_id";
+        $result = $this->link->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["price"];
+        }
+        else{
+            return "Wrong id";
+        }
+    }
+
+    function returnDishTime($dish_id){
+        $sql = "SELECT `time` FROM `dishes` WHERE `dish_id` = $dish_id";
+        $result = $this->link->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["time"];
+        }
+        else{
+            return "Wrong id";
         }
     }
 }

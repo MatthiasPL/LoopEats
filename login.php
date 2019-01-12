@@ -36,7 +36,7 @@ if(isset($_SESSION['login'])){
         <div class="col-md-4 col-lg-4 col-sm-10">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title"><strong>Sign In </strong></div>
+                    <div class="card-title"><strong>Sign In</strong></div>
                     <form role="form" id="login-form">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Login:</label>

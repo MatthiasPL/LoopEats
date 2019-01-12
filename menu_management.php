@@ -144,7 +144,7 @@ if(isset($_SESSION['login'])){
             //if(isset($_SESSION['login']) && isset($_POST['dish_name']) && isset($_POST['dish_description']) && isset($_POST['price']) && isset($_POST['vegan_friendly']) && isset($_POST['gluten_free']) && isset($_POST['spicy']) && isset($_POST["contains_nuts"])){
             data: {"dish_name": $("#dish_name").val(), "dish_description": $("#dish_description").val(), "price": $("#price").val(), "vegan_friendly": veganfriendly, "gluten_free": glutenfree, "spicy": spicy, "contains_nuts": contains_nuts},
             success: function(response){
-                alert(response);
+                //alert(response);
                 location.reload();
             }
         });

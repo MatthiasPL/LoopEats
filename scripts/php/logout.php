@@ -6,7 +6,7 @@
  * Time: 17:26
  */
 session_start();
-session_destroy();
+unset($_SESSION['login']);
 
 header("Location: ../../index.php");
 die();

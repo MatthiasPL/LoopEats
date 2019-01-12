@@ -24,6 +24,7 @@
 <body>
 <?php include "parts/navbar.php"?>
 <div class="container">
+
     <div id="list"></div>
 </div>
 

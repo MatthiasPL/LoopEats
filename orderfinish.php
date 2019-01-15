@@ -53,7 +53,27 @@ if(!count($_SESSION['cart'])){
                         </div>
                         <div class="form-group">
                             <label for="time">Time: <i class="text-black-50">(12-20:30 every 0.5h)</i></label>
-                            <input type="time" class="form-control" id="time" min="12:00" max="20:00" step="1800" required>
+                            <!--<input type="time" class="form-control" id="time" min="12:00" max="20:00" step="1800" required>-->
+                            <select id="time">
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+                                <option value="20:00">20:00</option>
+                                <option value="20:30">20:30</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="comment">Comment:</label>
@@ -94,10 +114,12 @@ if(!count($_SESSION['cart'])){
             takeaway="0";
         }
 
+        var value = $("#time option:selected").val();
+
         $.ajax({
             url: 'scripts/php/executeOrder.php',
             type: 'post',
-            data: {"surname": $("#surname").val(), "numPeople": $("#num-people").val(), "time": $("#time").val(), "takeaway": takeaway, "comment": $("#comment").val()},
+            data: {"surname": $("#surname").val(), "numPeople": $("#num-people").val(), "time": value, "takeaway": takeaway, "comment": $("#comment").val()},
             success: function (response) {
                 if(response=="Successfully ordered"){
                     $("#successmessage").text(response);

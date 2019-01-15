@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="de15f9f3-eece-4957-83d0-3923430c828f" name="fm4you" url="http://www.fm4you.pl">
-        <fileTransfer host="www.fm4you.pl" port="21" rootFolder="/LoopEats">
+        <fileTransfer host="www.fm4you.pl" port="21" rootFolder="/LoopEats/">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

@@ -24,9 +24,9 @@
 <body>
 <?php include "parts/navbar.php"?>
 <div class="container">
-    <div class="row justify-content-center">
+    <!--<div class="row justify-content-center">
         <button type="button" id="search-dish" class="btn btn-success">Search</button>
-    </div>
+    </div>-->
     <div class="row h-100 justify-content-center" id="search-card">
         <div class="col-sm-12 col-md-4 align-items-stretch">
             <div class="card h-100">
@@ -34,7 +34,7 @@
                     <div class="card-title"><strong>Add new dish</strong></div>
                     <form role="form" id="menu-form">
                         Name: <input type="text" id="dish_name" class="input-group-text w-100" />
-                        Description: <input type="text" id="dish_description" class="input-group-text w-100" />
+                        <!--Description: <input type="text" id="dish_description" class="input-group-text w-100" />
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="vegan_friendly">
                             <label class="custom-control-label" for="vegan_friendly">Vegan</label>
@@ -50,7 +50,7 @@
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="without_nuts">
                             <label class="custom-control-label" for="without_nuts">Without nuts</label>
-                        </div>
+                        </div>-->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-outline-success w-100" id="search-menu">Search</button>
                         </div>
@@ -82,7 +82,15 @@
     });
 
     $("#search-menu").click(function(){
-
+        $.ajax({
+            url: 'scripts/php/printOrderMenuWhere.php',
+            type: 'post',
+            data: {"dish_name": $("#dish_name")},
+            success: function(response){
+                alert(response);
+                $("#list").html(response);
+            }
+        });
     });
 
     function draw() {
@@ -91,14 +99,15 @@
             type: 'post',
             success: function (response) {
                 $("#list").html(response);
-                $(".adddish").click(function(){
+                $(".adddish").click(function(event){
+                    event.preventDefault();
                     var scroll = $(window).scrollTop();
                     if($(this).parent().parent().find("#quantity").val()>0){
                         //alert($(this).parent().parent().parent().parent().attr("id"));
                         $.ajax({
                             url: 'scripts/php/addToCart.php',
                             type: 'post',
-                            data: {"dish_id": $(this).parent().parent().parent().parent().attr("id"), "quantity": $(this).parent().parent().find("#quantity").val()},
+                            data: {"dish_id": $(this).parent().parent().parent().parent().attr("id"), "quantity": Math.ceil($(this).parent().parent().find("#quantity").val())},
                             success: function(response){
                                 //alert(response);
                                 draw();

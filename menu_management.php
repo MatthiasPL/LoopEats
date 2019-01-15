@@ -46,7 +46,7 @@ else{
                         Name: <input type="text" id="dish_name" class="input-group-text w-100" required />
                         Description: <input type="text" id="dish_description" class="input-group-text w-100" required />
                         Price: <input type="number" id="price" class="input-group-text w-100" min="0.00" max="10000.00" step="0.01" required />
-                        Image (link): <input type="url" id="image" class="input-group-text w-100"" />
+                        Image (link): <input type="text" id="image_link" class="input-group-text w-100"" />
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="vegan_friendly">
                             <label class="custom-control-label" for="vegan_friendly">Vegan</label>
@@ -144,14 +144,14 @@ else{
         else {
             contains_nuts="0";
         }
+
         //if()
         $.ajax({
             url: 'scripts/php/addToMenu.php',
             type: 'post',
             //if(isset($_SESSION['login']) && isset($_POST['dish_name']) && isset($_POST['dish_description']) && isset($_POST['price']) && isset($_POST['vegan_friendly']) && isset($_POST['gluten_free']) && isset($_POST['spicy']) && isset($_POST["contains_nuts"])){
-            data: {"dish_name": $("#dish_name").val(), "dish_description": $("#dish_description").val(), "price": $("#price").val(), "vegan_friendly": veganfriendly, "gluten_free": glutenfree, "spicy": spicy, "contains_nuts": contains_nuts},
+            data: {"dish_name": $("#dish_name").val(), "dish_description": $("#dish_description").val(), "price": $("#price").val(), "image_link": $("#image_link").val(), "vegan_friendly": veganfriendly, "gluten_free": glutenfree, "spicy": spicy, "contains_nuts": contains_nuts},
             success: function(response){
-                //alert(response);
                 location.reload();
             }
         });

@@ -27,12 +27,13 @@ if(isset($_POST['surname']) && isset($_POST['numPeople']) && isset($_POST['time'
 
         //echo $nmAtHour;
         $id = 0;
-        while ($productQuantity = key($_SESSION['cart'])) {
+        $overallPrice = 0;
+        while ($productQuantity = current($_SESSION['cart'])) {
             //echo "a";
             $times[$id] = intval($db->returnDishTime(key($_SESSION['cart'])));
-            $products[$id]['id'] = key($_SESSION['cart']);
             $products[$id]['quantity'] = $productQuantity;
-            $overallPrice += $productQuantityy * $db->returnDishPrice(key($_SESSION['cart']));
+            $products[$id]['id'] = key($_SESSION['cart']);
+            $overallPrice += $productQuantity * $db->returnDishPrice(key($_SESSION['cart']));
             //echo $db->intval(returnDishTime(key($_SESSION['cart'])));
             next($_SESSION['cart']);
             $id++;
